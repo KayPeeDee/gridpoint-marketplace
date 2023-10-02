@@ -1,0 +1,78 @@
+<section class="auth-register">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="card property-card">
+        <div class="card-body">
+          <div class="p-fluid" [formGroup]="registerForm">
+
+            <div class="field mt-4 mb-4">
+              <span class="p-float-label">
+                <input pInputText id="firstname" type="text" formControlName="first_name"/>
+                <label htmlFor="firstname">First Name</label>
+              </span>
+            </div>
+
+            <div class="field mb-4">
+              <span class="p-float-label">
+                <input pInputText id="lastname" type="text" formControlName="last_name"/>
+                <label htmlFor="lastname">Last Name</label>
+              </span>
+            </div>
+
+            <div class="field mb-4">
+              <span class="p-float-label">
+                <input pInputText id="username" type="text" formControlName="user_name"/>
+                <label htmlFor="username">Username</label>
+              </span>
+            </div>
+
+            <div class="field mb-4">
+              <span class="p-float-label">
+                <input pInputText id="email" type="text" formControlName="email"/>
+                <label htmlFor="email">Email</label>
+              </span>
+            </div>
+
+            <div class="field mb-4">
+              <span class="p-float-label">
+                <p-multiSelect id="roles"
+                               [options]="roles"
+                               [(ngModel)]="selectedRoles"
+                               optionLabel="name"
+                               [ngModelOptions]="{standalone: true}">
+                </p-multiSelect>
+                <label htmlFor="roles">Roles</label>
+              </span>
+            </div>
+
+
+            <div class="field mb-4">
+              <span class="p-float-label">
+                <input pInputText id="password" type="text" formControlName="password"/>
+                <label htmlFor="password">Password</label>
+              </span>
+            </div>
+
+            <div class="field mb-4">
+              <span class="p-float-label">
+                <input pInputText id="confirm-password" type="text" formControlName="password_confirmation"/>
+                <label htmlFor="confirm-password">Confirm Password</label>
+              </span>
+            </div>
+            <p-button label="Register" (click)="signup()" [loading]="(loading$ | async)!"></p-button>
+          </div>
+          <p-divider align="center">
+            <b>OR Already Have an Account</b>
+          </p-divider>
+          <div class="p-fluid">
+            <p-button label="Login" (click)="loginPage()"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+

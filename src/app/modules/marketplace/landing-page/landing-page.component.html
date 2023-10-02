@@ -1,0 +1,190 @@
+<section class="landing-header-section">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="landing-jumbtron">
+        <h1>Delivering an end-to-end homebuying experience</h1>
+        <p>Welcome to our Property Market Place</p>
+      </div>
+    </div>
+    <div class="search-section">
+      <div class="search-form">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Buy</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Rent</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" type="button">Sell</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" type="button">Realtors</button>
+          </li>
+        </ul>
+        <div class="card property-card">
+          <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                <div class="d-flex mb-2">
+                  <div class="flex-shrink-1">
+                    <p-multiSelect
+                      [options]="propertyTypesList"
+                      [(ngModel)]="selectedPropertyTypes"
+                      defaultLabel="Select Property Type"
+                      optionLabel="type_name"
+                      display="chip"
+                      class="hide-search-input"
+                      [group]="true"
+                      (onChange)="onMultiSelect($event, 'PROPERTY_TYPE')">
+                      <ng-template let-group pTemplate="group">
+                        <div class="p-d-flex p-ai-center">
+                          <span>{{group.label}}</span>
+                        </div>
+                      </ng-template>
+                    </p-multiSelect>
+                  </div>
+                  <div class="w-100">
+                    <div class="p-inputgroup">
+                      <input type="text" pInputText placeholder="Search by location (Country, Province, City, Area or Suburb)" />
+                      <button type="button" pButton icon="pi pi-search" label="Search" styleClass="p-button-warn" (click)="search()"></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Min Price"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Price"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Min Baths"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Baths"/>
+                  </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Min Beds"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Beds"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Property Size"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Baths"/>
+                  </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Min Beds"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Beds"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Property Size"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Baths"/>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <p-button label="More Options" icon="pi pi-plus" styleClass="p-button-outlined p-button-secondary"></p-button>
+                  <p-button label="Search" icon="pi pi-search" styleClass="p-button-outlined p-button-secondary"></p-button>
+
+                </div>
+
+
+              </div>
+              <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+
+                <div class="d-flex mb-2">
+                  <div>
+                    <p-multiSelect
+                      [options]="propertyTypesList"
+                      [(ngModel)]="selectedPropertyTypes"
+                      defaultLabel="Select Property Type"
+                      optionLabel="type_name"
+                      display="chip"
+                      class="hide-search-input"
+                      [group]="true"
+                      (onChange)="onMultiSelect($event, 'PROPERTY_TYPE')">
+                      <ng-template let-group pTemplate="group">
+                        <div class="p-d-flex p-ai-center">
+                          <span>{{group.label}}</span>
+                        </div>
+                      </ng-template>
+                    </p-multiSelect>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="p-inputgroup">
+                      <input type="text" pInputText placeholder="Search by location (Country, Province, City, Area or Suburb)" />
+                      <button type="button" pButton icon="pi pi-search" label="Search" styleClass="p-button-warn" (click)="search()"></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Min Price"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Price"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Min Baths"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Baths"/>
+                  </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Min Beds"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Beds"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Property Size"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Baths"/>
+                  </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Min Beds"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Beds"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Property Size"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" pInputText placeholder="Max Baths"/>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

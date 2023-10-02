@@ -1,0 +1,248 @@
+<p-toast></p-toast>
+<div class="col-lg-12">
+  <div class="mb-4">Property Ownership</div>
+  <div class="field mb-4">
+    <span class="p-float-label">
+      <p-multiSelect
+        [options]="propertyOwnershipTypesOptions"
+        [(ngModel)]="selectedPropertyOwnershipTypes"
+        [ngModelOptions]="{standalone: true}"
+        defaultLabel="Property Ownership Types"
+        optionLabel="type_name"
+        display="chip">
+      </p-multiSelect>
+      <label htmlFor="property_types">Property Ownership Types</label>
+    </span>
+  </div>
+</div>
+
+<div class="col-lg-12 mt-3" *ngIf="filterByShareholderType('Individual(s)')">
+  <div class="d-flex justify-content-between">
+    <div class="mr-2">
+      <label class="col-form-label fw-bold fs-6">Individual(s)</label>
+    </div>
+    <ng-container>
+      <p-button label="Add Individual(s)" icon="pi pi-plus" styleClass="p-button-outlined p-button-secondary" (click)="openCreateOwnerModal('Individual(s)')"></p-button>
+    </ng-container>
+  </div>
+  <ng-template #individual>
+    <div class="alert alert-info" role="alert">
+      No records of Individual Owners added. Click Add button to add one
+    </div>
+    <div class="mt-5">
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+  <div *ngIf="(individualPropertyOwners$ | async)!.length > 0; else individual">
+    <p-table #dt [value]="(individualPropertyOwners$ | async)!" responsiveLayout="stack" [breakpoint]="'960px'">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>No.</th>
+          <th>Action</th>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Address</th>
+          <th>Shareholding %</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-individual let-rowIndex="rowIndex">
+        <tr class="clickable-tr">
+          <td>{{ rowIndex + 1 }}</td>
+          <td class="dropdownPropertyAction">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="pi pi-ellipsis-v"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">View</a></li>
+                <li><a class="dropdown-item" href="#">Edit</a></li>
+                <li><a class="dropdown-item" href="#">Delete</a></li>
+              </ul>
+            </div>
+          </td>
+          <td>{{individual.content_object.first_name}}</td>
+          <td>{{individual.content_object.middle_name}}</td>
+          <td>{{individual.content_object.last_name}}</td>
+          <td>
+            {{individual.content_object.email}}
+          </td>
+          <td>
+            {{individual.content_object.country_code}}{{individual.content_object.phone_number}}
+          </td>
+          <td>
+            {{individual.content_object.unit_number}}
+            {{individual.content_object.building_complex_name}}
+            {{individual.content_object.street_road_number}}
+            {{individual.content_object.street_road_name ? individual.content_object.street_road_name + ',' : ''}}
+            {{individual.content_object.suburb ? individual.content_object.suburb + ',' : ''}}
+            {{individual.content_object.area ? individual.content_object.area + ',' : ''}}
+            {{individual.content_object.district_county ? individual.content_object.district_county + ',' : ''}}
+            {{individual.content_object.town_city ? individual.content_object.town_city + ',' : ''}}
+            {{individual.content_object.state_province ? individual.content_object.state_province + ',' : ''}}
+            {{individual.content_object.country}}
+          </td>
+          <td>{{individual.share_percentage}}</td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+</div>
+
+<div class="col-lg-12 mt-3" *ngIf="filterByShareholderType('Compan(ies)')">
+  <div class="d-flex justify-content-between">
+    <div class="mr-2">
+      <label class="col-form-label fw-bold fs-6">Compan(ies)</label>
+    </div>
+    <ng-container>
+      <p-button label="Add Compan(ies)" icon="pi pi-plus" styleClass="p-button-outlined p-button-secondary" (click)="openCreateOwnerModal('Compan(ies)')"></p-button>
+    </ng-container>
+  </div>
+  <ng-template #company>
+    <div class="alert alert-info" role="alert">
+      No records of Company Owners added. Click Add button to add one
+    </div>
+    <div class="mt-5">
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+  <div *ngIf="(companyPropertyOwners$ | async)!.length > 0; else company">
+    <p-table #dt [value]="(companyPropertyOwners$ | async)!">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>No.</th>
+          <th>Action</th>
+          <th>Company Name</th>
+          <th>Company Registration Number</th>
+          <th>Company Email</th>
+          <th>Phone Number</th>
+          <th>Reachable Address</th>
+          <th>Shareholding %</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-company let-rowIndex="rowIndex">
+        <tr class="clickable-tr">
+          <td>{{ rowIndex + 1 }}</td>
+          <td class="dropdownPropertyAction">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="pi pi-ellipsis-v"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">View</a></li>
+                <li><a class="dropdown-item" href="#">Edit</a></li>
+                <li><a class="dropdown-item" href="#">Delete</a></li>
+              </ul>
+            </div>
+          </td>
+          <td>{{company.content_object.name}}</td>
+          <td>{{company.content_object.reg_number}}</td>
+          <td>
+            {{company.content_object.email}}
+          </td>
+          <td>
+            {{company.content_object.country_code}}{{company.content_object.phone_number}}
+          </td>
+          <td>
+            {{company.content_object.unit_number}}
+            {{company.content_object.building_complex_name}}
+            {{company.content_object.street_road_number}}
+            {{company.content_object.street_road_name ? company.content_object.street_road_name + ',' : ''}}
+            {{company.content_object.suburb ? company.content_object.suburb + ',' : ''}}
+            {{company.content_object.area ? company.content_object.area + ',' : ''}}
+            {{company.content_object.district_county ? company.content_object.district_county + ',' : ''}}
+            {{company.content_object.town_city ? company.content_object.town_city + ',' : ''}}
+            {{company.content_object.state_province ? company.content_object.state_province + ',' : ''}}
+            {{company.content_object.country}}
+          </td>
+          <td>{{company.share_percentage}}</td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+</div>
+
+<div class="col-lg-12 mt-3" *ngIf="filterByShareholderType('Trust(s)')">
+  <div class="d-flex justify-content-between">
+    <div class="mr-2">
+      <label class="col-form-label fw-bold fs-6">Trust(s)</label>
+    </div>
+    <ng-container>
+      <p-button label="Add Trust(s)" icon="pi pi-plus" styleClass="p-button-outlined p-button-secondary" (click)="openCreateOwnerModal('Trust(s)')"></p-button>
+    </ng-container>
+  </div>
+  <ng-template #trust>
+    <div class="alert alert-info" role="alert">
+      No records of Trust Owners added. Click Add button to add one
+    </div>
+    <div class="mt-5">
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+  <div *ngIf="(trustPropertyOwners$ | async)!.length > 0; else trust">
+    <p-table #dt [value]="(trustPropertyOwners$ | async)!">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>No.</th>
+          <th>Action</th>
+          <th>Company Name</th>
+          <th>Company Registration Number</th>
+          <th>Company Email</th>
+          <th>Phone Number</th>
+          <th>Reachable Address</th>
+          <th>Shareholding %</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-company let-rowIndex="rowIndex">
+        <tr class="clickable-tr">
+          <td>{{ rowIndex + 1 }}</td>
+          <td class="dropdownPropertyAction">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="pi pi-ellipsis-v"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">View</a></li>
+                <li><a class="dropdown-item" href="#">Edit</a></li>
+                <li><a class="dropdown-item" href="#">Delete</a></li>
+              </ul>
+            </div>
+          </td>
+          <td>{{company.content_object.name}}</td>
+          <td>{{company.content_object.reg_number}}</td>
+          <td>
+            {{company.content_object.email}}
+          </td>
+          <td>
+            {{company.content_object.country_code}}{{company.content_object.phone_number}}
+          </td>
+          <td>
+            {{company.content_object.unit_number}}
+            {{company.content_object.building_complex_name}}
+            {{company.content_object.street_road_number}}
+            {{company.content_object.street_road_name ? company.content_object.street_road_name + ',' : ''}}
+            {{company.content_object.suburb ? company.content_object.suburb + ',' : ''}}
+            {{company.content_object.area ? company.content_object.area + ',' : ''}}
+            {{company.content_object.district_county ? company.content_object.district_county + ',' : ''}}
+            {{company.content_object.town_city ? company.content_object.town_city + ',' : ''}}
+            {{company.content_object.state_province ? company.content_object.state_province + ',' : ''}}
+            {{company.content_object.country}}
+          </td>
+          <td>{{company.share_percentage}}</td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+</div>
+

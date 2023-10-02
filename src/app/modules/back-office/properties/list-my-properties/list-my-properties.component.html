@@ -1,0 +1,53 @@
+<section class="mt-3">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between">
+          <div>My Properties</div>
+          <button type="button" class="btn btn-secondary" (click)="createNewProperty()">Create Property</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <p-table [value]="(properties$ | async)!"
+                 responsiveLayout="stack" [breakpoint]="'960px'" [loading]="(isLoading$ | async)!" [rowHover]="true">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th>No.</th>
+              <th>Action</th>
+              <th>Parcel Number</th>
+              <th>Ref Code</th>
+              <th>Lot Size</th>
+              <th>Lot Size Postfix</th>
+              <th>Year Built</th>
+              <th>Remodelled Year</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-property let-columns="columns" let-rowIndex="rowIndex">
+            <tr>
+              <td><span class="p-column-title">No.</span>{{rowIndex + 1}}</td>
+              <td>
+                <span class="p-column-title">Action</span>
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="pi pi-ellipsis-v"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">View</a></li>
+                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                  </ul>
+                </div>
+              </td>
+              <td><span class="p-column-title">Name</span>{{property.parcel_number}}</td>
+              <td><span class="p-column-title">Price</span>{{property.property_ref_code}}</td>
+              <td><span class="p-column-title">Category</span>{{property.lot_size}}</td>
+              <td><span class="p-column-title">Quantity</span>{{property.lot_size_postfix}}</td>
+              <td><span class="p-column-title">Category</span>{{property.year_built}}</td>
+              <td><span class="p-column-title">Quantity</span>{{property.remodeled_year}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</section>

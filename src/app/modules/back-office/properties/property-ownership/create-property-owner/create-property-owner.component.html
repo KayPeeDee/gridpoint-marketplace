@@ -1,0 +1,784 @@
+<div class="whatsapp-numbers">
+  <div [ngSwitch]="config.data.ownershipType">
+
+    <form [formGroup]="ownershipFrom">
+      <div [ngSwitch]="config.data.ownershipType">
+        <div class="row" formGroupName="individuals" *ngSwitchCase="'Individual(s)'">
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+               <input type="text" pInputText placeholder="First Name" formControlName="first_name">
+              <label htmlFor="first_name">First Name</label>
+            </span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+               <input type="text" pInputText placeholder="Middle Name" formControlName="middle_name">
+              <label htmlFor="middle_name">Middle Name</label>
+            </span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <input type="text" pInputText placeholder="Last Name" formControlName="last_name">
+              <label htmlFor="last_name">Last Name</label>
+            </span>
+            </div>
+
+          </div>
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <input type="text" pInputText placeholder="Email" formControlName="email">
+              <label htmlFor="email">Email</label>
+            </span>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <p-autoComplete
+                formControlName="country_code"
+                [suggestions]="filteredCountryCodes"
+                (completeMethod)="filterCountryCodes($event)"
+                [dropdown]="true"
+                placeholder="Country Code">
+                <ng-template let-code pTemplate="item">
+                  <div class="location-item">
+                    <span>{{code}}</span>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              <label htmlFor="country_code">Country Code</label>
+            </span>
+            </div>
+          </div>
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <input type="text" pInputText placeholder="Phone Number" formControlName="phone_number">
+              <label htmlFor="phone_number">Phone Number</label>
+            </span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <p-calendar placeholder="Date of Birth" formControlName="date_of_birth"></p-calendar>
+              <label htmlFor="date_of_birth">Date of Birth</label>
+            </span>
+            </div>
+
+          </div>
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <input type="text" pInputText placeholder="ID/Passport Number" formControlName="id_passport_number">
+              <label htmlFor="id_passport_number">ID/Passport Number</label>
+            </span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+              <span class="p-float-label">
+                <p-inputNumber
+                  formControlName="share_percentage"
+                  placeholder="Share Percentage"
+                  buttonLayout="horizontal"
+                  inputId="horizontal" spinnerMode="horizontal"
+                  incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus"
+                  [min]="1"
+                  (onInput)="checkSharePercentage($event)">
+                </p-inputNumber>
+                <label htmlFor="share_percentage">Share Percentage</label>
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="row" formGroupName="companies" *ngSwitchCase="'Compan(ies)'">
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+               <input type="text" pInputText placeholder="Company Name" formControlName="name">
+              <label htmlFor="name">Company Name</label>
+            </span>
+            </div>
+          </div>
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+               <input type="text" pInputText placeholder="Company Registration Number" formControlName="reg_number">
+              <label htmlFor="reg_number">Company Registration Number</label>
+            </span>
+            </div>
+          </div>
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+               <input type="text" pInputText placeholder="Company Email" formControlName="email">
+              <label htmlFor="email">Company Email</label>
+            </span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <p-autoComplete
+                formControlName="country_code"
+                [suggestions]="filteredCountryCodes"
+                (completeMethod)="filterCountryCodes($event)"
+                [dropdown]="true"
+                placeholder="Country Code">
+                <ng-template let-code pTemplate="item">
+                  <div class="location-item">
+                    <span>{{code}}</span>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              <label htmlFor="country_code">Country Code</label>
+            </span>
+            </div>
+          </div>
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+              <span class="p-float-label">
+                <input type="text" pInputText placeholder="Phone Number" formControlName="phone_number">
+                <label htmlFor="phone_number">Phone Number</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <p-inputNumber
+                formControlName="share_percentage"
+                placeholder="Share Percentage"
+                buttonLayout="horizontal"
+                inputId="horizontal" spinnerMode="horizontal"
+                incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus"
+                [min]="1"
+                (onInput)="checkSharePercentage($event)">
+              </p-inputNumber>
+              <label htmlFor="share_percentage">Share Percentage</label>
+            </span>
+            </div>
+          </div>
+
+          <div class="col-lg-12 mt-3">
+            <label class="col-form-label fw-bold fs-6">Company Reachable Address</label>
+            <div class="row mb-6">
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Country" formControlName="country">
+                        <label htmlFor="country">Country</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="State/Province/Region" formControlName="state_province">
+                        <label htmlFor="state_province">State/Province/Region</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Town/City" formControlName="town_city">
+                        <label htmlFor="town_city">Town/City</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="District/County" formControlName="district_county">
+                        <label htmlFor="district_county">District/County</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Area" formControlName="area">
+                        <label htmlFor="area">Area</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Suburb" formControlName="suburb">
+                        <label htmlFor="suburb">Suburb</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Street/Road Name" formControlName="street_road_name">
+                        <label htmlFor="street_road_name">Street/Road Name</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Street/Road Number" formControlName="street_road_number">
+                        <label htmlFor="street_road_number">Street/Road Number</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                  <span class="p-float-label">
+                    <input type="text" pInputText placeholder="Building/Complex Name" formControlName="building_complex_name">
+                    <label htmlFor="building_complex_name">Building/Complex Name</label>
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                  <span class="p-float-label">
+                    <input type="text" pInputText placeholder="Unit Number" formControlName="unit_number">
+                    <label htmlFor="unit_number">Unit Number</label>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-lg-12 mt-3">
+            <p-divider></p-divider>
+          </div>
+
+          <div class="col-lg-12 mt-3">
+            <label class="col-form-label fw-bold fs-6">Company Shareholders</label>
+
+            <div formArrayName="shareholders">
+              <div *ngFor="let member of companyShareholders.controls; let i=index">
+                <div class="row mb-6" [formGroupName]="i">
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="First Name" formControlName="first_name">
+                        <label htmlFor="first_name">First Name</label>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                         <input type="text" pInputText placeholder="Middle Name" formControlName="middle_name">
+                        <label htmlFor="middle_name">Middle Name</label>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Last Name" formControlName="last_name">
+                        <label htmlFor="last_name">Last Name</label>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Email" formControlName="email">
+                        <label htmlFor="email">Email</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <p-inputNumber
+                          formControlName="share_percentage"
+                          [placeholder]="'Share Percentage'"
+                          buttonLayout="horizontal"
+                          inputId="horizontal" spinnerMode="horizontal"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          [min]="1">
+                        </p-inputNumber>
+                        <label htmlFor="share_percentage">Share Percentage</label>
+                      </span>
+                    </div>
+
+
+                  </div>
+                  <div class="col-lg-4 mt-4">
+
+                    <div class="field">
+                      <span class="p-float-label">
+                        <p-autoComplete
+                              formControlName="country_code"
+                              [suggestions]="filteredCountryCodes"
+                              (completeMethod)="filterCountryCodes($event)"
+                              [dropdown]="true"
+                              placeholder="Country Code">
+                          <ng-template let-code pTemplate="item">
+                            <div class="location-item">
+                              <span>{{code}}</span>
+                            </div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label htmlFor="country_code">Country Code</label>
+                      </span>
+                    </div>
+
+                  </div>
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <p-inputNumber
+                          placeholder="Phone Number"
+                          formControlName="phone_number"
+                          [min]="0" [useGrouping]="false">
+                        </p-inputNumber>
+                        <label htmlFor="phone_number">Phone Number</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <p-calendar
+                          [maxDate]="minDate"
+                          (onSelect)="onSelectShareholderDob($event, i)"
+                          dateFormat="yy-mm-dd"
+                          placeholder="Date of Birth"
+                          formControlName="date_of_birth"
+                          inputId="dateformat"
+                          [showClear]="true">
+                        </p-calendar>
+                        <label htmlFor="date_of_birth">Date of Birth</label>
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <input  type="text" pInputText formControlName="id_passport_number" placeholder="ID/Passport Number">
+                        <label htmlFor="id_passport_number">ID/Passport Number</label>
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <div class="col-lg-12 mt-4">
+                    <p-button label="Remove" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary" (click)="removeCompanyShareholder(i)"></p-button>
+                    <p-button *ngIf="i === companyShareholders.length - 1" label="Add Another Shareholder"
+                              icon="pi pi-plus"
+                              styleClass="p-button-outlined p-button-secondary ms-2" (click)="addCompanyShareholders()">
+                    </p-button>
+                  </div>
+
+                </div>
+              </div>
+
+              <p-button *ngIf="companyShareholders.length === 0" label="Add Shareholder"
+                        icon="pi pi-plus"
+                        styleClass="p-button-outlined p-button-secondary" (click)="addCompanyShareholders()">
+              </p-button>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row" formGroupName="companies" *ngSwitchCase="'Trust(s)'">
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+              <span class="p-float-label">
+                 <input type="text" pInputText placeholder="Company Name" formControlName="name">
+                <label htmlFor="name">Company Name</label>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+              <span class="p-float-label">
+                 <input type="text" pInputText placeholder="Company Registration Number" formControlName="reg_number">
+                <label htmlFor="reg_number">Company Registration Number</label>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+               <input type="text" pInputText placeholder="Company Email" formControlName="email">
+              <label htmlFor="email">Company Email</label>
+            </span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <p-autoComplete
+                formControlName="country_code"
+                [suggestions]="filteredCountryCodes"
+                (completeMethod)="filterCountryCodes($event)"
+                [dropdown]="true"
+                placeholder="Country Code">
+                <ng-template let-code pTemplate="item">
+                  <div class="location-item">
+                    <span>{{code}}</span>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              <label htmlFor="country_code">Country Code</label>
+            </span>
+            </div>
+          </div>
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+              <span class="p-float-label">
+                <input type="text" pInputText placeholder="Phone Number" formControlName="phone_number">
+                <label htmlFor="phone_number">Phone Number</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4">
+            <div class="field">
+            <span class="p-float-label">
+              <p-inputNumber
+                formControlName="share_percentage"
+                placeholder="Share Percentage"
+                buttonLayout="horizontal"
+                inputId="horizontal" spinnerMode="horizontal"
+                incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus"
+                [min]="1"
+                (onInput)="checkSharePercentage($event)">
+              </p-inputNumber>
+              <label htmlFor="share_percentage">Share Percentage</label>
+            </span>
+            </div>
+          </div>
+
+          <div class="col-lg-12 mt-3">
+            <label class="col-form-label fw-bold fs-6">Company Reachable Address</label>
+            <div class="row mb-6">
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Country" formControlName="country">
+                        <label htmlFor="country">Country</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="State/Province/Region" formControlName="state_province">
+                        <label htmlFor="state_province">State/Province/Region</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Town/City" formControlName="town_city">
+                        <label htmlFor="town_city">Town/City</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="District/County" formControlName="district_county">
+                        <label htmlFor="district_county">District/County</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Area" formControlName="area">
+                        <label htmlFor="area">Area</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Suburb" formControlName="suburb">
+                        <label htmlFor="suburb">Suburb</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Street/Road Name" formControlName="street_road_name">
+                        <label htmlFor="street_road_name">Street/Road Name</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Street/Road Number" formControlName="street_road_number">
+                        <label htmlFor="street_road_number">Street/Road Number</label>
+                      </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                  <span class="p-float-label">
+                    <input type="text" pInputText placeholder="Building/Complex Name" formControlName="building_complex_name">
+                    <label htmlFor="building_complex_name">Building/Complex Name</label>
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mt-4">
+                <div class="field">
+                  <span class="p-float-label">
+                    <input type="text" pInputText placeholder="Unit Number" formControlName="unit_number">
+                    <label htmlFor="unit_number">Unit Number</label>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-lg-12 mt-3">
+            <p-divider></p-divider>
+          </div>
+
+          <div class="col-lg-12 mt-3">
+            <label class="col-form-label fw-bold fs-6">Company Shareholders</label>
+
+            <div formArrayName="shareholders">
+              <div *ngFor="let member of companyShareholders.controls; let i=index">
+                <div class="row mb-6" [formGroupName]="i">
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <p-dropdown
+                          [options]="memberTypes"
+                          formControlName="shareholder_type"
+                          placeholder="Select Member Type"
+                          [showClear]="true">
+                        </p-dropdown>
+                        <label htmlFor="shareholder_type">Member Type</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="First Name" formControlName="first_name">
+                        <label htmlFor="first_name">First Name</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                         <input type="text" pInputText placeholder="Middle Name" formControlName="middle_name">
+                        <label htmlFor="middle_name">Middle Name</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Last Name" formControlName="last_name">
+                        <label htmlFor="last_name">Last Name</label>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Email" formControlName="email">
+                        <label htmlFor="email">Email</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <input type="text" pInputText placeholder="Company Name" formControlName="company_name">
+                        <label htmlFor="company_name">Company Name</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                         <input type="text" pInputText placeholder="Company Reg Number" formControlName="company_reg_number">
+                        <label htmlFor="company_reg_number">Company Reg Number</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <p-inputNumber
+                          formControlName="share_percentage"
+                          [placeholder]="'Share Percentage'"
+                          buttonLayout="horizontal"
+                          inputId="horizontal" spinnerMode="horizontal"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          [min]="1">
+                        </p-inputNumber>
+                        <label htmlFor="share_percentage">Share Percentage</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+
+                    <div class="field">
+                      <span class="p-float-label">
+                        <p-autoComplete
+                          formControlName="country_code"
+                          [suggestions]="filteredCountryCodes"
+                          (completeMethod)="filterCountryCodes($event)"
+                          [dropdown]="true"
+                          placeholder="Country Code">
+                          <ng-template let-code pTemplate="item">
+                            <div class="location-item">
+                              <span>{{code}}</span>
+                            </div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label htmlFor="country_code">Country Code</label>
+                      </span>
+                    </div>
+
+                  </div>
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <p-inputNumber
+                          placeholder="Phone Number"
+                          formControlName="phone_number"
+                          [min]="0" [useGrouping]="false">
+                        </p-inputNumber>
+                        <label htmlFor="phone_number">Phone Number</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <p-calendar
+                          [maxDate]="minDate"
+                          (onSelect)="onSelectShareholderDob($event, i)"
+                          dateFormat="yy-mm-dd"
+                          placeholder="Date of Birth"
+                          formControlName="date_of_birth"
+                          inputId="dateformat"
+                          [showClear]="true">
+                        </p-calendar>
+                        <label htmlFor="date_of_birth">Date of Birth</label>
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <div class="col-lg-4 mt-4">
+                    <div class="field">
+                      <span class="p-float-label">
+                        <input  type="text" pInputText formControlName="id_passport_number" placeholder="ID/Passport Number">
+                        <label htmlFor="id_passport_number">ID/Passport Number</label>
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <div class="col-lg-12 mt-4">
+                    <p-button label="Remove" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary" (click)="removeCompanyShareholder(i)"></p-button>
+                    <p-button *ngIf="i === companyShareholders.length - 1" label="Add Another Shareholder"
+                              icon="pi pi-plus"
+                              styleClass="p-button-outlined p-button-secondary ms-2" (click)="addCompanyShareholders()">
+                    </p-button>
+                  </div>
+
+                </div>
+              </div>
+
+              <p-button *ngIf="companyShareholders.length === 0" label="Add Shareholder"
+                        icon="pi pi-plus"
+                        styleClass="p-button-outlined p-button-secondary" (click)="addCompanyShareholders()">
+              </p-button>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="mt-3">
+    <p-divider></p-divider>
+  </div>
+  <div class="d-flex justify-content-end mt-2">
+
+    <p-button label="Close" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary" (click)="close()"></p-button>
+    <p-button label="Save" icon="pi pi-save" styleClass="p-button-outlined p-button-secondary ms-2" (click)="save()"></p-button>
+  </div>
+</div>

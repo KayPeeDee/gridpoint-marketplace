@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  //padding-top: 70px;
+}
+:root {
+  --theme-bg-color: #4C4C4C;
+  --theme-secondary-bg-color: #424242;
+  --theme-txt-color: #11303d;
+  --theme-light-color: #fff;
+
+  --theme-primary-color: #11303d;
+  --theme-secondary-color: #6eb5ff;
+  --theme-gray-color: #f5f5f5;
+  --theme-accent-color: #add8e6;
+
+  --primary-color: #11303d;
+  --secondary-color: #CBD5E0;
+  --text-primary-color:  #333333;
+  --text-secondary-color: #999999;
+}
+
+@import "./assets/sass/style.scss";

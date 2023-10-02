@@ -1,0 +1,34 @@
+<section class="auth-login">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="card property-card">
+        <div class="card-body">
+          <div class="p-fluid" [formGroup]="loginForm">
+
+            <div class="field mb-4 mt-4">
+              <span class="p-float-label">
+                <input pInputText id="email" type="text" formControlName="email"/>
+                <label htmlFor="email">Email</label>
+              </span>
+            </div>
+
+            <div class="field mb-4">
+              <span class="p-float-label">
+                <input pInputText id="password" type="text" formControlName="password"/>
+                <label htmlFor="password">Password</label>
+              </span>
+            </div>
+
+            <p-button label="Login" (click)="login()" [loading]="(loading$ | async)!"></p-button>
+          </div>
+          <p-divider align="center">
+            <b>OR Don't Have an Account?</b>
+          </p-divider>
+          <div class="p-fluid">
+            <p-button label="Register Account" (click)="signup()"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

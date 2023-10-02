@@ -1,0 +1,44 @@
+<nav class="navbar fixed-top navbar-expand-lg bg-custom-dark">
+  <div class="container-fluid custom-logo">
+    <a class="navbar-brand" routerLink="/">GRIDpoint</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">View Public Site</a>
+        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="#">Clients</a>-->
+<!--        </li>-->
+
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="#">Resources</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="#">Pricing</a>-->
+<!--        </li>-->
+      </ul>
+      <form class="d-flex" role="search">
+        <ng-container *ngIf="(user$ | async); else unAuth">
+          <!--          <p-button  [label]="user.email" styleClass="p-button-link"></p-button>-->
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{user.email}}
+            </button>
+            <ul class="dropdown-menu">
+              <li><button class="dropdown-item" type="button" >View Site</button></li>
+              <li><button class="dropdown-item" type="button">Settings</button></li>
+              <li><button class="dropdown-item" type="button" (click)="openLogoutModal()">Logout</button></li>
+            </ul>
+          </div>
+        </ng-container>
+        <ng-template #unAuth>
+          <a routerLink="/auth/login" class="btn btn-outline-success" type="submit">Login</a>
+        </ng-template>
+
+      </form>
+    </div>
+  </div>
+</nav>

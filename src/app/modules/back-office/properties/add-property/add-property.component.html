@@ -1,0 +1,1159 @@
+<section class="mt-3 mb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            Add Property
+          </div>
+          <div class="card-body">
+            <p-tabView [(activeIndex)]="index" (onChange)="handleTabChange($event)" [scrollable]="true">
+              <p-tabPanel header="Main Property Info">
+                <form [formGroup]="propertyForm">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="field mb-4 mt-4">
+                  <span class="p-float-label">
+                    <input pInputText id="parcel_number" type="text" formControlName="parcel_number"/>
+                    <label htmlFor="parcel_number">Parcel Number</label>
+                  </span>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4 mt-4">
+                  <span class="p-float-label">
+                    <input pInputText id="property_ref_code" type="text" formControlName="property_ref_code"/>
+                    <label htmlFor="property_ref_code">Ref Code</label>
+                  </span>
+                      </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                  <span class="p-float-label">
+                    <p-calendar [showIcon]="true" formControlName="year_built" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+                    <label htmlFor="year_built">Year Built</label>
+                  </span>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                  <span class="p-float-label">
+                    <p-calendar [showIcon]="true" formControlName="remodeled_year" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+                    <label htmlFor="remodeled_year">Remodeled Year</label>
+                  </span>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                  <span class="p-float-label">
+                    <p-inputNumber
+                      inputId="minmaxfraction"
+                      mode="decimal"
+                      [minFractionDigits]="2"
+                      [maxFractionDigits]="5" formControlName="lot_size"> </p-inputNumber>
+                    <label htmlFor="lot_size">Lot Size</label>
+                  </span>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                  <span class="p-float-label">
+                    <p-dropdown [options]="sizeOptions" placeholder="Lot Size Postfix" formControlName="lot_size_postfix"></p-dropdown>
+                    <label htmlFor="lot_size_postfix">Lot Size Postfix</label>
+                  </span>
+                      </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                  <span class="p-float-label">
+                    <p-inputNumber formControlName="foot_print_size" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"> </p-inputNumber>
+                    <label htmlFor="foot_print_size">Foot Print Size</label>
+                  </span>
+                      </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                  <span class="p-float-label">
+                    <p-dropdown formControlName="foot_print_size_postfix" [options]="sizeOptions" placeholder="Foot Print Size Postfix"></p-dropdown>
+                    <label htmlFor="foot_print_size_postfix">Foot Print Size Postfix</label>
+                  </span>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                  <span class="p-float-label">
+                    <p-inputNumber formControlName="floor_size" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"> </p-inputNumber>
+                    <label htmlFor="floor_size">Floor Size</label>
+                  </span>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                  <span class="p-float-label">
+                    <p-dropdown formControlName="floor_size_postfix" [options]="sizeOptions" placeholder="Floor Size Postfix"></p-dropdown>
+                    <label htmlFor="floor_size_postfix">Floor Size Postfix</label>
+                  </span>
+                      </div>
+
+                    </div>
+                  </div>
+                </form>
+                <p-divider></p-divider>
+                <div class="d-flex justify-content-between mt-3">
+                  <div></div>
+
+                  <ng-container>
+                    <div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary" (click)="onCreateProperty()">
+                      <span class="indicator-label">
+                        <ng-container  *ngIf="(loading$ | async) === false">
+                          Save & Continue {{ " " }}
+                          <span class="pi pi-arrow-right ms-2 me-0"></span>
+                        </ng-container>
+                        <ng-container *ngIf="(loading$ | async)">
+                          <span class="indicator-progress" [style.display]="'block'">
+                            Saving...{{ " " }}
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"
+                            ></span>
+                          </span>
+                        </ng-container>
+                      </span>
+                      </button>
+
+                    </div>
+                  </ng-container>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Property Locations">
+                <form [formGroup]="addressForm">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="field mb-4 mt-4">
+                        <span class="p-float-label">
+                          <input pInputText id="country" type="text" formControlName="country"/>
+                          <label htmlFor="country">Country</label>
+                        </span>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4 mt-4">
+                        <span class="p-float-label">
+                          <input pInputText id="province" type="text" formControlName="province"/>
+                          <label htmlFor="province">Province</label>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="city_town" type="text" formControlName="city_town"/>
+                          <label htmlFor="city_town">City/Town</label>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="district_county" type="text" formControlName="district_county"/>
+                          <label htmlFor="district_county">District/County</label>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="area" type="text" formControlName="area"/>
+                          <label htmlFor="area">Area</label>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="suburb" type="text" formControlName="suburb"/>
+                          <label htmlFor="suburb">Suburb</label>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="road_street_name" type="text" formControlName="road_street_name"/>
+                          <label htmlFor="road_street_name">Road/Street Name</label>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="road_street_number" type="text" formControlName="road_street_number"/>
+                          <label htmlFor="road_street_number">Road/Street Number</label>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="building_complex_name" type="text" formControlName="building_complex_name"/>
+                          <label htmlFor="building_complex_name">Building/Complex Name</label>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="unit_number" type="text" formControlName="unit_number"/>
+                          <label htmlFor="unit_number">Unit Number</label>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="latitude" type="text" formControlName="latitude"/>
+                          <label htmlFor="latitude">Latitude</label>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="field mb-4">
+                        <span class="p-float-label">
+                          <input pInputText id="longitude" type="text" formControlName="longitude"/>
+                          <label htmlFor="longitude">Longitude</label>
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+                <p-divider></p-divider>
+                <div class="d-flex justify-content-between mt-3">
+                  <div class="mr-2">
+                    <ng-container>
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3"
+                        (click)="openPrev()"
+                      >
+                      <span class="pi pi-arrow-left me-1"></span>
+                        Back
+                      </button>
+                    </ng-container>
+                  </div>
+                  <ng-container>
+                    <div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3" (click)="onCreatePropertyLocation()">
+                      <span class="indicator-label">
+                        <ng-container  *ngIf="(loading$ | async) === false">
+                          Continue {{ " " }}
+                          <span class="pi pi-arrow-right ms-2 me-0"></span>
+                        </ng-container>
+                        <ng-container *ngIf="(loading$ | async)">
+                          <span class="indicator-progress" [style.display]="'block'">
+                            Saving...{{ " " }}
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"
+                            ></span>
+                          </span>
+                        </ng-container>
+                      </span>
+                      </button>
+
+                    </div>
+                  </ng-container>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Property Deeds & Ownership">
+                <form [formGroup]="deedsForm">
+                  <div class="row">
+
+                    <property-ownership [propertyId]="null"></property-ownership>
+
+                    <div class="col-lg-12">
+                      <p-divider></p-divider>
+                    </div>
+
+                    <div class="col-lg-12" formArrayName="deeds">
+                      <div class="mb-4">Property Deed(s)</div>
+                      <div *ngFor="let deed of propertyDeeds.controls; let i=index">
+
+                        <div class="row " [formGroupName]="i">
+                          <div class="col-lg-3 mb-4">
+                            <div class="field">
+                              <span class="p-float-label">
+                                <input pInputText id="deed_number" type="text" formControlName="deed_number"/>
+                                <label htmlFor="deed_number">Deed Number</label>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-lg-3 mb-4">
+
+                            <div class="field">
+                              <span class="p-float-label">
+                                 <p-dropdown
+                                   [options]="additionalDeedTypes"
+                                   formControlName="deed_type"
+                                   placeholder="Deed Type">
+                                 </p-dropdown>
+                                <label htmlFor="deed_type">Deed Type</label>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-lg-3 mb-4">
+                            <div class="field">
+                              <span class="p-float-label">
+                                <p-calendar formControlName="deed_date"></p-calendar>
+                                <label htmlFor="deed_date">Deed Date</label>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-3">
+                            <p-button
+                              icon="pi pi-times"
+                              styleClass="p-button-rounded p-button-secondary me-2" (click)="removeDeed(i)">
+                            </p-button>
+                            <p-button
+                              *ngIf="i === propertyDeeds.length - 1"
+                              icon="pi pi-plus"
+                              styleClass="p-button-rounded p-button-secondary me-2" (click)="addDeeds()">
+                            </p-button>
+                          </div>
+                        </div>
+
+                      </div>
+                      <p-button
+                        *ngIf="propertyDeeds.length === 0"
+                        label="Add Deed"
+                        styleClass="p-button-outlined p-button-secondary" (click)="addDeeds()">
+                      </p-button>
+                    </div>
+
+                  </div>
+                </form>
+                <p-divider></p-divider>
+                <div class="d-flex justify-content-between mt-5">
+                  <div class="mr-2">
+                    <ng-container>
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3"
+                        (click)="openPrev()"
+                      >
+                        <span class="pi pi-arrow-left me-1"></span>
+                        Back
+                      </button>
+                    </ng-container>
+                  </div>
+
+                  <ng-container>
+                    <div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3" (click)="onCreatePropertyDeeds()">
+                      <span class="indicator-label">
+                        <ng-container  *ngIf="(loading$ | async) === false">
+                          Continue {{ " " }}
+                          <span class="pi pi-arrow-right ms-2 me-0"></span>
+                        </ng-container>
+                        <ng-container *ngIf="(loading$ | async)">
+                          <span class="indicator-progress" [style.display]="'block'">
+                            Saving...{{ " " }}
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"
+                            ></span>
+                          </span>
+                        </ng-container>
+                      </span>
+                      </button>
+
+                    </div>
+                  </ng-container>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Additional Property Info">
+                <div class="row mt-3">
+                  <div class="col-lg-6">
+                    <div class="field mb-4">
+                      <span class="p-float-label">
+                        <p-multiSelect [options]="propertyTypesOptions" [group]="true" [(ngModel)]="selectedPropertyTypes" defaultLabel="Property Types" optionLabel="type_name" display="chip">
+                          <ng-template let-group pTemplate="group">
+                            <div class="flex align-items-center">
+                              <span>{{ group.label }}</span>
+                            </div>
+                          </ng-template>
+                        </p-multiSelect>
+                        <label htmlFor="property_types">Property Types</label>
+                      </span>
+                    </div>
+
+                  </div>
+                  <div class="col-lg-6">
+
+                    <div class="field mb-4">
+                      <span class="p-float-label">
+                        <p-multiSelect
+                          [options]="propertyZonesOptions"
+                          [(ngModel)]="selectedZones"
+                          defaultLabel="Property Zones"
+                          optionLabel="zone_name"
+                          display="chip">
+                        </p-multiSelect>
+                        <label htmlFor="property_zones">Property Zones</label>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <p-divider></p-divider>
+                <div class="d-flex justify-content-between mt-5">
+                  <div class="mr-2">
+                    <ng-container>
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3"
+                        (click)="openPrev()"
+                      >
+                        <span class="pi pi-arrow-left me-1"></span>
+                        Back
+                      </button>
+                    </ng-container>
+                  </div>
+
+                  <ng-container>
+                    <div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3" (click)="onCreatePropertyAdditionalInfo()">
+                      <span class="indicator-label">
+                        <ng-container  *ngIf="(loading$ | async) === false">
+                          Continue {{ " " }}
+                          <span class="pi pi-arrow-right ms-2 me-0"></span>
+                        </ng-container>
+                        <ng-container *ngIf="(loading$ | async)">
+                          <span class="indicator-progress" [style.display]="'block'">
+                            Saving...{{ " " }}
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"
+                            ></span>
+                          </span>
+                        </ng-container>
+                      </span>
+                      </button>
+
+                    </div>
+                  </ng-container>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Financials & Valuations">
+                <form [formGroup]="financialsForm">
+                  <div class="row" formGroupName="property_valuation_pricing">
+                    <label class="col-lg-12  fw-bold fs-6">Property Valuation Pricing</label>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-inputNumber
+                              formControlName="sales_valuation_price"
+                              [min]="0" [useGrouping]="false">
+                            </p-inputNumber>
+                            <label htmlFor="sales_valuation_price">Sales Valuation Price</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                             <p-dropdown
+                               [options]="currencies"
+                               formControlName="sales_valuation_price_currency"
+                               placeholder="Sales Valuation Price Currency"
+                               [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="sales_valuation_price_currency">Sales Valuation Price Currency</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-dropdown
+                              [options]="areasOptions"
+                              formControlName="sales_valuation_price_option"
+                              placeholder="Sales Valuation Price Option"
+                              [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="sales_valuation_price_option">Sales Valuation Price Option</label>
+                          </span>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-inputNumber
+                              formControlName="rental_valuation_price"
+                              [min]="0" [useGrouping]="false">
+                            </p-inputNumber>
+                            <label htmlFor="rental_valuation_price">Rental Valuation Price</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                             <p-dropdown
+                               [options]="currencies"
+                               formControlName="rental_valuation_price_currency"
+                               placeholder="Rental Valuation Price Currency"
+                               [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="rental_valuation_price_currency">Rental Valuation Price Currency</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-dropdown
+                              [options]="areasOptions"
+                              formControlName="rental_valuation_price_option"
+                              placeholder="Rental Valuation Price Option"
+                              [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="rental_valuation_price_option">Rental Valuation Price Option</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-dropdown
+                              [options]="periodOptions"
+                              formControlName="rental_valuation_pricing_period"
+                              placeholder="Rental Valuation Pricing Period"
+                              [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="rental_valuation_pricing_period">Rental Valuation Pricing Period</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-calendar
+                              [maxDate]="minDate"
+                              dateFormat="yy-mm-dd"
+                              placeholder="Valuation Date"
+                              formControlName="valuation_date"
+                              inputId="dateformat"
+                              [showClear]="true">
+                            </p-calendar>
+                            <label htmlFor="valuation_date">Valuation Date</label>
+                          </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4">
+                    <p-divider></p-divider>
+                  </div>
+
+                  <div class="row" formGroupName="property_market_appraisal_price">
+                    <label class="col-lg-12  fw-bold fs-6">Property Market Appraisal Pricing</label>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-inputNumber
+                              formControlName="sales_market_appraisal_price"
+                              [min]="0" [useGrouping]="false">
+                            </p-inputNumber>
+                            <label htmlFor="sales_market_appraisal_price">Sales Market Appraisal Price</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                             <p-dropdown
+                               [options]="currencies"
+                               formControlName="sales_market_appraisal_price_currency"
+                               placeholder="Sales Market Appraisal Price Currency"
+                               [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="sales_market_appraisal_price_currency">Sales Market Appraisal Price Currency</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-dropdown
+                              [options]="areasOptions"
+                              formControlName="sales_market_appraisal_price_option"
+                              placeholder="Sales Market Appraisal Price Option"
+                              [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="sales_market_appraisal_price_option">Sales Market Appraisal Price Option</label>
+                          </span>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-inputNumber
+                              formControlName="rental_market_appraisal_price"
+                              [min]="0" [useGrouping]="false">
+                            </p-inputNumber>
+                            <label htmlFor="rental_market_appraisal_price">Rental Market Appraisal Price</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                             <p-dropdown
+                               [options]="currencies"
+                               formControlName="rental_market_appraisal_price_currency"
+                               placeholder="Rental Market Appraisal Price Currency"
+                               [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="rental_market_appraisal_price_currency">Rental Market Appraisal Price Currency</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-dropdown
+                              [options]="areasOptions"
+                              formControlName="rental_market_appraisal_price_option"
+                              placeholder="Rental Market Appraisal Price Option"
+                              [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="rental_market_appraisal_price_option">Rental Market Appraisal Price Option</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-dropdown
+                              [options]="periodOptions"
+                              formControlName="rental_market_appraisal_pricing_period"
+                              placeholder="Rental Market Appraisal Pricing Period"
+                              [showClear]="true">
+                             </p-dropdown>
+                            <label htmlFor="rental_market_appraisal_pricing_period">Rental Market Appraisal Pricing Period</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <p-calendar
+                              [maxDate]="minDate"
+                              dateFormat="yy-mm-dd"
+                              placeholder="Valuation Date"
+                              formControlName="valuation_date"
+                              inputId="dateformat"
+                              [showClear]="true">
+                            </p-calendar>
+                            <label htmlFor="valuation_date">Valuation Date</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="field mb-4 mt-4">
+                          <span class="p-float-label">
+                            <input type="text" pInputText formControlName="appraiser_name">
+                            <label htmlFor="appraiser_name">Appraiser Name</label>
+                          </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <p-divider></p-divider>
+                <div class="d-flex justify-content-between mt-5">
+                  <div class="mr-2">
+                    <ng-container>
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3"
+                        (click)="openPrev()"
+                      >
+                        <span class="pi pi-arrow-left me-1"></span>
+                        Back
+                      </button>
+                    </ng-container>
+                  </div>
+
+                  <ng-container>
+                    <div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3" (click)="onCreatePropertyFinancialInfo()">
+                          <span class="indicator-label">
+                            <ng-container  *ngIf="(loading$ | async) === false">
+                              Continue {{ " " }}
+                              <span class="pi pi-arrow-right ms-2 me-0"></span>
+                            </ng-container>
+                            <ng-container *ngIf="(loading$ | async)">
+                              <span class="indicator-progress" [style.display]="'block'">
+                                Saving...{{ " " }}
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"
+                                ></span>
+                              </span>
+                            </ng-container>
+                          </span>
+                      </button>
+
+                    </div>
+                  </ng-container>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Files & Documents">
+                <p>COMING SOON</p>
+              </p-tabPanel>
+              <p-tabPanel header="Marketing Info">
+                <form [formGroup]="marketingForm">
+                  <div class="row mt-3">
+                    <div class="col-lg-12">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <input type="text" pInputText formControlName="property_listing_title">
+                            <label htmlFor="property_listing_title">Property Title</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <textarea pInputTextarea formControlName="property_listing_teaser"></textarea>
+                            <label htmlFor="property_listing_teaser">Property Teaser</label>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="field mt-4">
+                          <span class="p-float-label">
+                            <textarea pInputTextarea formControlName="property_listing_description" rows="5"></textarea>
+                            <label htmlFor="property_listing_description">Property Description</label>
+                          </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <p-divider></p-divider>
+                <div class="d-flex justify-content-between mt-5">
+                  <div class="mr-2">
+                    <ng-container>
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3"
+                        (click)="openPrev()"
+                      >
+                        <span class="pi pi-arrow-left me-1"></span>
+                        Back
+                      </button>
+                    </ng-container>
+                  </div>
+
+                  <ng-container>
+                    <div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary me-3" (click)="onCreatePropertyListingMarketingInfo()">
+                          <span class="indicator-label">
+                            <ng-container  *ngIf="(loading$ | async) === false">
+                              Continue {{ " " }}
+                              <span class="pi pi-arrow-right ms-2 me-0"></span>
+                            </ng-container>
+                            <ng-container *ngIf="(loading$ | async)">
+                              <span class="indicator-progress" [style.display]="'block'">
+                                Saving...{{ " " }}
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"
+                                ></span>
+                              </span>
+                            </ng-container>
+                          </span>
+                      </button>
+
+                    </div>
+                  </ng-container>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Multimedia">
+                <p>COMING SOON</p>
+              </p-tabPanel>
+
+              <p-tabPanel [disabled]="true"></p-tabPanel>
+            </p-tabView>
+
+<!--            <mat-vertical-stepper [linear]="false" #stepper [animationDuration]="'2000'">-->
+<!--              <mat-step [stepControl]="propertyForm">-->
+<!--                <form [formGroup]="propertyForm">-->
+<!--                  <ng-template matStepLabel>-->
+<!--                    Add Main Property Details-->
+<!--                  </ng-template>-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4 mt-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="parcel_number" type="text" formControlName="parcel_number"/>-->
+<!--                          <label htmlFor="parcel_number">Parcel Number</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4 mt-4">-->
+<!--                  <span class="p-float-label">-->
+<!--                    <input pInputText id="property_ref_code" type="text" formControlName="property_ref_code"/>-->
+<!--                    <label htmlFor="property_ref_code">Ref Code</label>-->
+<!--                  </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                  <span class="p-float-label">-->
+<!--                    <p-calendar [showIcon]="true" formControlName="year_built" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>-->
+<!--                    <label htmlFor="year_built">Year Built</label>-->
+<!--                  </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <p-calendar [showIcon]="true" formControlName="remodeled_year" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>-->
+<!--                          <label htmlFor="remodeled_year">Remodeled Year</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <p-inputNumber-->
+<!--                            inputId="minmaxfraction"-->
+<!--                            mode="decimal"-->
+<!--                            [minFractionDigits]="2"-->
+<!--                            [maxFractionDigits]="5" formControlName="lot_size"> </p-inputNumber>-->
+<!--                          <label htmlFor="lot_size">Lot Size</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                      <span class="p-float-label">-->
+<!--                        <p-dropdown [options]="sizeOptions" placeholder="Lot Size Postfix" formControlName="lot_size_postfix"></p-dropdown>-->
+<!--                        <label htmlFor="lot_size_postfix">Lot Size Postfix</label>-->
+<!--                      </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                  <span class="p-float-label">-->
+<!--                    <p-inputNumber formControlName="foot_print_size" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"> </p-inputNumber>-->
+<!--                    <label htmlFor="foot_print_size">Foot Print Size</label>-->
+<!--                  </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                  <span class="p-float-label">-->
+<!--                    <p-dropdown formControlName="foot_print_size_postfix" [options]="sizeOptions" placeholder="Foot Print Size Postfix"></p-dropdown>-->
+<!--                    <label htmlFor="foot_print_size_postfix">Foot Print Size Postfix</label>-->
+<!--                  </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                  <span class="p-float-label">-->
+<!--                    <p-inputNumber formControlName="floor_size" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"> </p-inputNumber>-->
+<!--                    <label htmlFor="floor_size">Floor Size</label>-->
+<!--                  </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                  <span class="p-float-label">-->
+<!--                    <p-dropdown formControlName="floor_size_postfix" [options]="sizeOptions" placeholder="Floor Size Postfix"></p-dropdown>-->
+<!--                    <label htmlFor="floor_size_postfix">Floor Size Postfix</label>-->
+<!--                  </span>-->
+<!--                      </div>-->
+
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </form>-->
+<!--              </mat-step>-->
+<!--              <mat-step [stepControl]="addressForm">-->
+<!--                <form [formGroup]="addressForm">-->
+<!--                  <ng-template matStepLabel>Add Property Location</ng-template>-->
+<!--                  <div class="row">-->
+
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4 mt-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="country" type="text" formControlName="country"/>-->
+<!--                          <label htmlFor="country">Country</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4 mt-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="province" type="text" formControlName="province"/>-->
+<!--                          <label htmlFor="province">Province</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="city_town" type="text" formControlName="city_town"/>-->
+<!--                          <label htmlFor="city_town">City/Town</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="district_county" type="text" formControlName="district_county"/>-->
+<!--                          <label htmlFor="district_county">District/County</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="area" type="text" formControlName="area"/>-->
+<!--                          <label htmlFor="area">Area</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="suburb" type="text" formControlName="suburb"/>-->
+<!--                          <label htmlFor="suburb">Suburb</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="road_street_name" type="text" formControlName="road_street_name"/>-->
+<!--                          <label htmlFor="road_street_name">Road/Street Name</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="road_street_number" type="text" formControlName="road_street_number"/>-->
+<!--                          <label htmlFor="road_street_number">Road/Street Number</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="building_complex_name" type="text" formControlName="building_complex_name"/>-->
+<!--                          <label htmlFor="building_complex_name">Building/Complex Name</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="unit_number" type="text" formControlName="unit_number"/>-->
+<!--                          <label htmlFor="unit_number">Unit Number</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="latitude" type="text" formControlName="latitude"/>-->
+<!--                          <label htmlFor="latitude">Latitude</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                      <div class="field mb-4">-->
+<!--                        <span class="p-float-label">-->
+<!--                          <input pInputText id="longitude" type="text" formControlName="longitude"/>-->
+<!--                          <label htmlFor="longitude">Longitude</label>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+
+<!--                  </div>-->
+<!--&lt;!&ndash;                  <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button mat-button matStepperPrevious>Back</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button mat-button matStepperNext>Next</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                </form>-->
+<!--              </mat-step>-->
+<!--              <mat-step [stepControl]="deedsForm">-->
+<!--                <form [formGroup]="deedsForm">-->
+<!--                  <ng-template matStepLabel>Add Property Deeds & Ownership</ng-template>-->
+
+<!--                  <div class="row mt-5">-->
+<!--                    <div class="col-lg-12" formArrayName="deeds">-->
+<!--                      <div *ngFor="let deed of propertyDeeds.controls; let i=index">-->
+
+<!--                        <div class="row " [formGroupName]="i">-->
+<!--                          <div class="col-lg-3 mb-4">-->
+<!--                            <div class="field">-->
+<!--                              <span class="p-float-label">-->
+<!--                                <input pInputText id="deed_number" type="text" formControlName="deed_number"/>-->
+<!--                                <label htmlFor="deed_number">Deed Number</label>-->
+<!--                              </span>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="col-lg-3 mb-4">-->
+
+<!--                            <div class="field">-->
+<!--                              <span class="p-float-label">-->
+<!--                                 <p-dropdown-->
+<!--                                   [options]="additionalDeedTypes"-->
+<!--                                   formControlName="deed_type"-->
+<!--                                   placeholder="Deed Type">-->
+<!--                                 </p-dropdown>-->
+<!--                                <label htmlFor="deed_type">Deed Type</label>-->
+<!--                              </span>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="col-lg-3 mb-4">-->
+<!--                            <div class="field">-->
+<!--                              <span class="p-float-label">-->
+<!--&lt;!&ndash;                                <p-calendar formControlName="deed_date"></p-calendar>&ndash;&gt;-->
+<!--                                <input type="date" pInputText/>-->
+<!--                                <label htmlFor="deed_date">Deed Date</label>-->
+<!--                              </span>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="col-3">-->
+<!--                            <p-button-->
+<!--                              label="Remove Deed"-->
+<!--                              icon="pi pi-times"-->
+<!--                              styleClass="p-button-outlined p-button-secondary" (click)="removeDeed(i)">-->
+<!--                            </p-button>-->
+<!--                          </div>-->
+<!--                        </div>-->
+
+<!--                      </div>-->
+<!--                      <p-button-->
+<!--                        label="Add Another Deed"-->
+<!--                        styleClass="p-button-outlined p-button-secondary" (click)="addDeeds()">-->
+<!--                      </p-button>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div>-->
+<!--                    <button mat-button matStepperPrevious>Back</button>-->
+<!--                    <button mat-button (click)="stepper.reset()">Reset</button>-->
+<!--                  </div>-->
+<!--                </form>-->
+<!--              </mat-step>-->
+
+<!--              <mat-step>-->
+<!--                <ng-template matStepLabel>Add Property Types & Zoning</ng-template>-->
+<!--                <div class="row mt-5">-->
+<!--                  <div class="col-lg-6">-->
+<!--                    <div class="field mb-4">-->
+<!--                      <span class="p-float-label">-->
+<!--                        <p-multiSelect [options]="propertyTypesOptions" [group]="true" [(ngModel)]="selectedPropertyTypes" defaultLabel="Property Types" optionLabel="type_name" display="chip">-->
+<!--                          <ng-template let-group pTemplate="group">-->
+<!--                            <div class="flex align-items-center">-->
+<!--                              <span>{{ group.label }}</span>-->
+<!--                            </div>-->
+<!--                          </ng-template>-->
+<!--                        </p-multiSelect>-->
+<!--                        <label htmlFor="property_types">Property Types</label>-->
+<!--                      </span>-->
+<!--                    </div>-->
+
+<!--                  </div>-->
+<!--                  <div class="col-lg-6">-->
+
+<!--                    <div class="field mb-4">-->
+<!--                      <span class="p-float-label">-->
+<!--                        <p-multiSelect-->
+<!--                          [options]="propertyZonesOptions"-->
+<!--                          [(ngModel)]="selectedZones"-->
+<!--                          defaultLabel="Property Zones"-->
+<!--                          optionLabel="zoning_name"-->
+<!--                          display="chip">-->
+<!--                        </p-multiSelect>-->
+<!--                        <label htmlFor="property_zones">Property Zones</label>-->
+<!--                      </span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <button mat-button matStepperPrevious>Back</button>-->
+<!--                  <button mat-button (click)="stepper.reset()">Reset</button>-->
+<!--                </div>-->
+<!--              </mat-step>-->
+<!--              <mat-step>-->
+<!--                <ng-template matStepLabel>Property Files & Documents</ng-template>-->
+<!--                You are now done.-->
+<!--                <div>-->
+<!--                  <button mat-button matStepperPrevious>Back</button>-->
+<!--                  <button mat-button (click)="stepper.reset()">Reset</button>-->
+<!--                </div>-->
+<!--              </mat-step>-->
+<!--              <mat-step>-->
+<!--                <ng-template matStepLabel>Property Multimedia</ng-template>-->
+<!--                You are now done.-->
+<!--                <div>-->
+<!--                  <button mat-button matStepperPrevious>Back</button>-->
+<!--                  <button mat-button (click)="stepper.reset()">Reset</button>-->
+<!--                </div>-->
+<!--              </mat-step>-->
+<!--            </mat-vertical-stepper>-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
