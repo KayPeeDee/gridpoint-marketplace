@@ -7,7 +7,7 @@ import {
   additionalDeedTypes,
   areasOptions,
   currencies, periodOptions,
-  propertyOwnershipTypes,
+  propertyOwnershipTypes, propertyStatuses,
   propertyTypes,
   propertyZones
 } from "../../../shared/models/params";
@@ -43,6 +43,11 @@ export class AddPropertyComponent implements OnInit, OnDestroy {
   areasOptions: any=[];
   minDate!: Date;
   periodOptions: any[]=[];
+  propertyStatusesOptions: any[]=[];
+  selectedPropertyStatuses: any[]=[];
+
+  addedPropertyListingStatuses: any[]=[];
+
 
   constructor(
     private propertiesApiService: PropertiesApiService,
@@ -63,6 +68,7 @@ export class AddPropertyComponent implements OnInit, OnDestroy {
     this.currencies = currencies.map(item => item.currency);
     this.areasOptions = areasOptions.map(item => item.option);
     this.periodOptions = periodOptions.map(item => item.option);
+    this.propertyStatusesOptions = propertyStatuses;
   }
 
   handleTabChange(e: any) {
@@ -156,6 +162,7 @@ export class AddPropertyComponent implements OnInit, OnDestroy {
       property_listing_title: [''],
       property_listing_teaser: [''],
       property_listing_description: [''],
+      property_listings: this.formBuilder.array([])
     })
   }
 
@@ -181,6 +188,57 @@ export class AddPropertyComponent implements OnInit, OnDestroy {
   removeDeed(i:number) {
     this.propertyDeeds.removeAt(i);
   }
+
+  get propertyListings(): FormArray {
+    return this.marketingForm.get("property_listings") as FormArray;
+  }
+
+  newListing(statusName: string): FormGroup {
+    return this.formBuilder.group({
+      property_id: null,
+      property_listing_title: '',
+      property_listing_teaser: [''],
+      property_listing_description: [''],
+      property_listing_status: [statusName]
+    })
+  }
+
+  onCheckPropertyListingStatus($event: any){
+    console.log($event);
+    const selectedItems = $event.value;
+    if (this.addedPropertyListingStatuses.length === 0) {
+      this.addedPropertyListingStatuses = selectedItems;
+      this.addPropertyListings(selectedItems, this.propertyListings);
+    } else {
+      if (selectedItems.length >= this.addedPropertyListingStatuses.length) {
+        for (let i = 0; i < selectedItems.length; i++) {
+          if (!this.addedPropertyListingStatuses.includes(selectedItems[i])) {
+            this.propertyListings.push(this.newListing(selectedItems[i].status_name));
+          }
+        }
+        this.addedPropertyListingStatuses = selectedItems;
+      } else {
+        for (let i = 0; i < this.addedPropertyListingStatuses.length; i++) {
+          if (!selectedItems.includes(this.addedPropertyListingStatuses[i])) {
+            this.removePropertyListing(this.propertyListings, this.addedPropertyListingStatuses[i].status_name);
+          }
+        }
+        this.addedPropertyListingStatuses = selectedItems;
+      }
+    }
+  }
+
+  addPropertyListings(items: any[], listingsFormArray: FormArray) {
+    for (let index = 0; index < items.length; index++) {
+      const element = items[index];
+      listingsFormArray.push(this.newListing(element.status_name));
+    }
+  }
+
+  removePropertyListing(listingsFormArray: FormArray, statusName: string){
+    listingsFormArray.removeAt(listingsFormArray.value.findIndex((listing: any) => listing.status_name === statusName));
+  }
+
 
   filterByShareholderType(type: string){
     return this.selectedPropertyOwnershipTypes.some((el: any) => el.type === type);

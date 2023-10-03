@@ -1,5 +1,5 @@
-// const DOMAIN = 'http://127.0.0.1:8000';
-const DOMAIN = 'https://grid-point-api.onrender.com' // 'https://grid-point.vercel.app';
+const DOMAIN = 'http://127.0.0.1:8000';
+// const DOMAIN = 'https://grid-point-api.onrender.com' // 'https://grid-point.vercel.app';
 const GRID_POINT_URL = 'http://localhost:8989';
 const API_URL = `${DOMAIN}/api`;
 const REDIRECT_URL = `${GRID_POINT_URL}/auth/callback`;

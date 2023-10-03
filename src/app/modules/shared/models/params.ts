@@ -153,3 +153,13 @@ export const periodOptions = [
   { option: '/Year' }
 ]
 
+export const propertyStatuses = [
+    {status_name: 'Sale'},
+    {status_name: 'Rental'},
+    {status_name: 'JV Development'},
+    {status_name: 'Short Stay'},
+    {status_name: 'Auction'},
+    {status_name: 'Offplan'},
+    {status_name: 'Co-Working'}
+]
+
